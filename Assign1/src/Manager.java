@@ -397,13 +397,14 @@ public class Manager
        }
        
   }
-  public boolean choose(char choice){
+  public boolean choose (char choice){
 	  
 	     switch (choice){
 	        case 'A':
 	        case 'a': 
 	               System.out.println("Adding a movie to library");
 	               System.out.println();
+	               //pass = true;
 	               add();
 	               return false;
 	               
@@ -411,12 +412,14 @@ public class Manager
 	        case 'r': 
 	               System.out.println("Removing a movie from library");
 	               System.out.println();
+	               //pass = true;
 	               remove();
 	               return false;
 	               
 	        case 'D': 
 	        case 'd': 
 	               System.out.println("Displaying movies in library");
+	               //pass = true;
 	               display();
 	               return false;
 	               
@@ -424,6 +427,7 @@ public class Manager
 	        case 's': 
 	               System.out.println("Searching for a movie");
 	               System.out.println();
+	               //pass = true;
 	               search();
 	               return false;
 	               
@@ -432,14 +436,21 @@ public class Manager
 	        case 'e':
 	               System.out.println("Exiting library.... Enjoy your day");
 	               System.out.println();
+	               //pass = true;
 	               return true;
 	               
-	        default:
-	        		return false;
-     
+
+	               
+	        default: 
+
+	                   System.out.println("I have no idea what that command is... use options provided.");
+	                   System.out.println("Enter a valid choice:");
+	                   pick = in.nextLine();
+	                   choice = pick.charAt(0);
+	                   choose(choice);
+	                   return false;
 	                   
 	                   
 	     }
-	                
   }
 }
