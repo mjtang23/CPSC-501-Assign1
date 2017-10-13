@@ -10,7 +10,6 @@ public class UserInterface
      private Manager list = new Manager();
      private char choice;
      private String pick;
-     private boolean pass = false;
      private boolean quit = false;
      // Displays the menu to explain the options given
      public void displayMenu()

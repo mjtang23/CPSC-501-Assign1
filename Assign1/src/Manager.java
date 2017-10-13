@@ -7,188 +7,22 @@ import java.util.*;
 
 public class Manager
 {
-   private MovieNode head;
+   private MovieNode head = null;
    private Scanner in = new Scanner(System.in);
    private String pick;
    //private int number;
    private static final int MATCH = 0;
-   boolean pass = false;
-   // null head means empty list
-   public Manager()
-   {
-      MovieNode head = null;
-   }
-  // Sets the userinput for given genres
-   public String GenreInput(String pick)
-    { 
-      String temp = "";
-      int check;
-
-      
-     
-      switch(pick)
-      {
-        case "1":
-               temp = "Action";
-               pass = true;
-               break;
-        case "2":
-               temp = "Drama";
-               pass = true;
-               break;
-        case "3":
-               temp = "Science Fiction";
-               pass = true;
-               break;
-        case "4":
-               temp = "Comedy";  
-               pass = true;             
-               break;
-        case "5":
-               temp = "Horror"; 
-               pass = true;              
-               break;
-        case "6":
-               temp = "Martial Arts"; 
-               pass = true;              
-               break;
-        case "7":
-               temp = "Other"; 
-               pass = true;              
-               break;
-        default:
-               
-                if(pick.length() == 0)
-                {
-                    temp = "";
-                }
-               else
-                  System.out.print("Choice not valid, please pick again:");
-               
-       }
-       return temp;
-     }
-   // Shows options for genre menu
-   public void GenreMenu()
-   {
-      System.out.println("Select Genre");
-      System.out.println("\t (1) Action");
-      System.out.println("\t (2)Drama");
-      System.out.println("\t (3)Science Fiction");
-      System.out.println("\t (4)Comedy");
-      System.out.println("\t (5)Horror");
-      System.out.println("\t (6)Martial Arts");
-      System.out.println("\t (7)Other");
-      System.out.print("Enter choice:");
-   }
+   private boolean pass = false;
+  
    
-   // Checks to see if rating input is valid 
-   public String RatingCheck(String pick)
-    {
-       String temp = "0";
-       char negative = '-';
-       String choice;
-       switch(pick)
-       {
-          case "1":
-                   temp = "1";
-                   pass = true;
-                   break;
-          case "2":
-                   temp = "2";
-                   pass = true;
-                   break;
-          case "3":
-                   temp = "3";
-                   pass = true;
-                   break;
-          case "4":
-                   temp = "4";
-                   pass = true;
-                   break;
-          case "5":
-                   temp = "5";
-                   pass = true;
-                   break;
-          default:
-                  if(pick.charAt(0) == negative)
-                   {
-                      temp = "";
-                      
-                   }
-                  else
-                   {
-                      System.out.print("Input invalid, please try again:"); 
-                   }
-        }
-       return temp;
-    }  
    // This method adds a movie class to the library
    public void add()
     {
-        String title;
-        String genre;
-        String pick;
-        String rating;
-        int castSize;
-        int i;
-        String member;
-        
-
-        Movie newMovie;
-        MovieNode newNode;
-	    System.out.println("What movie do you want to add?:");
-        System.out.print("Movie title: ");
-        title = in.next();
-        System.out.println();
-        GenreMenu();
-        do{
-           pick = in.next();   
-           genre = GenreInput(pick);
-           if(genre.length() == 0)
-            {
-              System.out.println("Going to menu");
-              return;
-            }
-         }while(pass == false);
-     
-        pass = false;
-        System.out.print("What's the rating of this movie?(1 being the worst and 5 being the best)" + "\n Negative value will cancel a rating:");
-        do{
-           pick = in.next();
-           rating = RatingCheck(pick);
-           if(rating.length() == 0)
-             {
-               System.out.println("Going to menu");
-               return;
-             }
-          
-         }while(pass == false);
-
-        pass = false;
-        System.out.print("How many cast do you want to put for this movie?:");
-        do{
-           try{
-               castSize = in.nextInt(); 
-               pass = true;
-             }
-           catch(Exception e){
-              System.out.println("Not a number... please try again:");
-              castSize = in.nextInt();
-             }
-          }while(pass == false);
-
-        newMovie = new Movie(title, genre, rating, castSize);
-        System.out.println("Who is in this movie?");
-        
-        pass = false;
-        for(i = 0; i < castSize; i++)
-         {
-           System.out.print("Cast Member name:");
-           member = in.next();
-           newMovie.setCast(i, member);
-         }
-        newNode = new MovieNode(newMovie,null);
+        MovieMaker movie = new MovieMaker();
+        movie.create();
+        Movie data = movie.getMovie();
+        MovieNode newNode = new MovieNode(data, null);
+         
 
         // When the list is empty, it makes the new movie the head (start position)
         if (head == null)
@@ -205,13 +39,15 @@ public class Manager
             // Previous reference is one step back and will refer to
             // the last node in the list.
             if(current.getNext() == null){
-            	if(title.compareToIgnoreCase(current.getData().getName()) < MATCH){
+            	if((newNode.getData().getName()).compareToIgnoreCase(current.getData().getName()) < MATCH){
             		newNode.setNext(current);
-            		head = newNode;
-        	    	//current.getNext()
-                 	
-                 	
-                 	
+            		if(head == current){
+            			head = newNode;
+            			current.getNext();
+            			return;
+                     	
+            		}
+	
             	}
             	else{
             		current.setNext(newNode);
@@ -223,14 +59,15 @@ public class Manager
                {
             
             	   // if the header needs to be pushed up and replaced by newNode
-                   if(title.compareToIgnoreCase(current.getData().getName()) < MATCH)
+                   if(movie.getTitle().compareToIgnoreCase(current.getData().getName()) < MATCH)
                      {
                 	    if(head == current){
                 	     	newNode.setNext(current);
-                	    	current.setNext(null);
+                	    	//current.setNext(null);
                          	head = newNode;
                          	previous = current;
                             current = current.getNext();
+                            break;
                             
                          	
                         }
@@ -244,7 +81,7 @@ public class Manager
                     
                      }
                     // if head doesnt get replaced
-                    else if(title.compareToIgnoreCase(current.getData().getName()) > MATCH ){
+                    else if(movie.getTitle().compareToIgnoreCase(current.getData().getName()) > MATCH ){
                 	   previous = current;
                        current = current.getNext();
                     

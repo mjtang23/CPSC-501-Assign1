@@ -14,7 +14,7 @@ public class Movie
   // Sets the attribute values for the movie
   public Movie(String aName, String aGenre, String aRating, int castSize)
     {
-	name = aName;
+	    name = aName;
         genre = aGenre;
         rating = aRating;
         cast = new String[castSize];
