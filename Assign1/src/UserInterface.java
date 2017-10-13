@@ -36,10 +36,15 @@ public class UserInterface
           
           while(quit == false)
            {
-             displayMenu();
-             pick = in.nextLine();
-             choice = pick.charAt(0);
-             decision(choice);
+        	 try{
+                displayMenu();
+                pick = in.nextLine();
+                choice = pick.charAt(0);
+                decision(choice);
+        	 }catch (Exception e){
+        		 System.out.println("Wrong input, please try again\n");
+        		 userInput();
+        	 }
            }
        }   
       
@@ -90,7 +95,7 @@ public class UserInterface
     	        default: 
 
     	                   System.out.println("I have no idea what that command is... use options provided.");
-    	                   System.out.print("Enter a valid choice:");
+    	                   System.out.println("Enter a valid choice:");
     	                   pick = in.nextLine();
     	                   choice = pick.charAt(0);
     	                   decision(choice);
