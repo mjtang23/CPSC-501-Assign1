@@ -35,12 +35,12 @@ public class JUnitTesting {
 		assertEquals(man.choose(pick), check);
 	}
 	@Test
-	public void Endtest() {
-		char pick = 'e';
-		Manager man = new Manager();
-		boolean check = true;
-		assertEquals(man.choose(pick), check);
+	public void MovieTitleTest(){
+		MovieMaker movie = new MovieMaker();
+		movie.create();
+		assertEquals(movie.getMovie().getName(), "happyfeet");
 	}
+	
 	
 
 

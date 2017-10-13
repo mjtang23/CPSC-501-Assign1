@@ -8,7 +8,6 @@ public class Movie
    private String [] cast;
    private String genre = null;
    private String rating;
-   private int count;
    private int i;
 
   // Sets the attribute values for the movie

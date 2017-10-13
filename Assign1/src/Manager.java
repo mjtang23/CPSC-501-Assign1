@@ -1,6 +1,6 @@
 /* Marcus Tang 10086730 *Credit to James Tam* Version: April 14th, 2015
 This class provides all the classes that are involved with the actions of the library. It adds, removes, searches and displays movies in the library. This actions have to be called upon, in order to figure out what the user wants to do in their library. This can only calls methods from the movie and movienode class to adjust their values. 
-
+This code doesn't work properly,it will over delete when getting rid of the head.
 */
 import java.util.*;
 
