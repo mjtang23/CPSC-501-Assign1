@@ -397,6 +397,49 @@ public class Manager
        }
        
   }
-  
-  
+  public boolean choose(char choice){
+	  
+	     switch (choice){
+	        case 'A':
+	        case 'a': 
+	               System.out.println("Adding a movie to library");
+	               System.out.println();
+	               add();
+	               return false;
+	               
+	        case 'R':
+	        case 'r': 
+	               System.out.println("Removing a movie from library");
+	               System.out.println();
+	               remove();
+	               return false;
+	               
+	        case 'D': 
+	        case 'd': 
+	               System.out.println("Displaying movies in library");
+	               display();
+	               return false;
+	               
+	        case 'S':
+	        case 's': 
+	               System.out.println("Searching for a movie");
+	               System.out.println();
+	               search();
+	               return false;
+	               
+	               
+	        case 'E':
+	        case 'e':
+	               System.out.println("Exiting library.... Enjoy your day");
+	               System.out.println();
+	               return true;
+	               
+	        default:
+	        		return false;
+     
+	                   
+	                   
+	     }
+	                
+  }
 }
