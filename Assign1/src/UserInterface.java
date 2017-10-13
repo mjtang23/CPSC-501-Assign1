@@ -27,70 +27,79 @@ public class UserInterface
      // Checks to see if input is valid
      public void decision(char choice)
       {
-        switch(choice)
-        {
-
-           case 'A':
-           case 'a': 
-                     System.out.println("Adding a movie to library");
-                     System.out.println();
-                     pass = true;
-                     list.add();
-                     userInput();
-                     break;
-           case 'R':
-           case 'r': 
-                     System.out.println("Removing a movie from library");
-                     System.out.println();
-                     pass = true;
-                     list.remove();
-                     userInput();
-                     break;
-           case 'D': 
-           case 'd': 
-                     System.out.println("Displaying movies in library");
-                     pass = true;
-                     list.display();
-                     userInput();
-                     break;
-           case 'S':
-           case 's': 
-                     System.out.println("Searching for a movie");
-                     System.out.println();
-                     pass = true;
-                     list.search();
-                     userInput();
-                     break;
-           case 'E':
-           case 'e':
-                     System.out.println("Exiting library.... Enjoy your day");
-                     System.out.println();
-                     pass = true;
-                     quit = true;
-                     break;
-
-           default: 
-
-                         System.out.println("I have no idea what that command is... use options provided.");
-                         System.out.print("Enter a valid choice:");
-                         pick = in.nextLine();
-                         choice = pick.charAt(0);
-                         decision(choice);
-                      
-        }
+        quit = choose(choice);
+        userInput();
       }
       // Organizes the display menu with input, so it can be used again when action has finished.
       public void userInput()
        {
-          pass = false;
-          while(pass == false)
+          
+          while(quit == false)
            {
              displayMenu();
              pick = in.nextLine();
              choice = pick.charAt(0);
              decision(choice);
            }
-       }        
+       }   
+      
+      public boolean choose (char choice){
+    	  
+    	     switch (choice){
+    	        case 'A':
+    	        case 'a': 
+    	               System.out.println("Adding a movie to library");
+    	               System.out.println();
+    	               //pass = true;
+    	               list.add();
+    	               return false;
+    	               
+    	        case 'R':
+    	        case 'r': 
+    	               System.out.println("Removing a movie from library");
+    	               System.out.println();
+    	               //pass = true;
+    	               list.remove();
+    	               return false;
+    	               
+    	        case 'D': 
+    	        case 'd': 
+    	               System.out.println("Displaying movies in library");
+    	               //pass = true;
+    	               list.display();
+    	               return false;
+    	               
+    	        case 'S':
+    	        case 's': 
+    	               System.out.println("Searching for a movie");
+    	               System.out.println();
+    	               //pass = true;
+    	               list.search();
+    	               return false;
+    	               
+    	               
+    	        case 'E':
+    	        case 'e':
+    	               System.out.println("Exiting library.... Enjoy your day");
+    	               System.out.println();
+    	               //pass = true;
+    	               return true;
+    	               
+
+    	               
+    	        default: 
+
+    	                   System.out.println("I have no idea what that command is... use options provided.");
+    	                   System.out.print("Enter a valid choice:");
+    	                   pick = in.nextLine();
+    	                   choice = pick.charAt(0);
+    	                   decision(choice);
+    	                   return false;
+    	                   
+    	                   
+    	     }
+    	                
+    	   }
       // The start of the program that runs the userInput method, and welcome title.
       public void start()
        { 

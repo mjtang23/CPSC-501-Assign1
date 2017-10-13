@@ -23,12 +23,15 @@ public class Movie
    // sets the cast for each position    
   public void setCast(int position, String member)
     { cast[position] = member;}
+  
     // returns the title of film
     public String getName()
     { return(name);}
     // set the name of the title
+    
     public void setName(String aName)
     { name = aName;}
+    
     // returns all attributes when this class is printed off somewhere else
     public String toString()
     {

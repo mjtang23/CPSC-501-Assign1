@@ -9,6 +9,7 @@ public class Manager
 {
    private MovieNode head;
    private Scanner in = new Scanner(System.in);
+   private String pick;
    //private int number;
    private static final int MATCH = 0;
    boolean pass = false;
@@ -136,7 +137,7 @@ public class Manager
 
         Movie newMovie;
         MovieNode newNode;
-	System.out.println("What movie do you want to add?:");
+	    System.out.println("What movie do you want to add?:");
         System.out.print("Movie title: ");
         title = in.next();
         System.out.println();
@@ -193,6 +194,7 @@ public class Manager
         if (head == null)
         {
             head = newNode; 
+            
         }
         // Case 2: Node not empty, find insertion point (end of list)
         else
@@ -202,31 +204,64 @@ public class Manager
             // Traverse list: when current is null end is reached
             // Previous reference is one step back and will refer to
             // the last node in the list.
-            while (current != null)
-            {
-               // if the header needs to be pushed up and replaced by newNode
-                if(title.compareToIgnoreCase(head.getData().getName()) < MATCH)
-                  {
-                    newNode.setNext(current);
-                    current.setNext(null);
-                    head = newNode;
-                  }
-                 // if head doesnt get replaced
-                 else if(title.compareToIgnoreCase(current.getData().getName()) < MATCH && (previous != null))
-                  {
-                    previous.setNext(newNode);
-                    newNode.setNext(current);
-                    current.setNext(current.getNext());
-                  }
+            if(current.getNext() == null){
+            	if(title.compareToIgnoreCase(current.getData().getName()) < MATCH){
+            		newNode.setNext(current);
+            		head = newNode;
+        	    	//current.getNext()
+                 	
+                 	
+                 	
+            	}
+            	else{
+            		current.setNext(newNode);
+            		return;
+            	}
+            }
+            try{
+               while (current != null)
+               {
+            
+            	   // if the header needs to be pushed up and replaced by newNode
+                   if(title.compareToIgnoreCase(current.getData().getName()) < MATCH)
+                     {
+                	    if(head == current){
+                	     	newNode.setNext(current);
+                	    	current.setNext(null);
+                         	head = newNode;
+                         	previous = current;
+                            current = current.getNext();
+                            
+                         	
+                        }
+                	 
+                	    else{
+                           newNode.setNext(current);
+                           previous.setNext(newNode);
+                           break;
+                	    }
+                   
+                    
+                     }
+                    // if head doesnt get replaced
+                    else if(title.compareToIgnoreCase(current.getData().getName()) > MATCH ){
+                	   previous = current;
+                       current = current.getNext();
+                    
+                     }
+            	
+            	}
                   
-               
+            } catch(Exception e){
+        		current.setNext(newNode);
+        		return;
+              
                 
-                
-               previous = current;
-               current = current.getNext();
+              
                
                  
             }
+        
             // Previous refers to last node. Link in new node but adding
             // it to the end (last node's next pointer refers to the new
             // node).
@@ -299,67 +334,69 @@ public class Manager
     // How: Displays data for a node, moves onto next node and recursive call again.
  
    // Displays the movies in out library
-   public void display()
-    {
-	int count = 1;
+   public void display(){
+	    int count = 1;
         MovieNode temp = head;
         System.out.println("Movie Collection\n");
         System.out.println("---------------");
        
         if (temp == null)
             System.out.println("\tList is empty: nothing to display");
-        while (temp != null)
-        {
-            System.out.println("#" + count + " " + temp);
-	    temp = temp.getNext();
-	    count = count + 1;
+        
+        while (temp != null){
+        	try{
+        		System.out.println("#" + count + " " + temp);
+        		temp = temp.getNext();
+        		count = count + 1;
+        	} catch (Exception e){
+        		break;
+        	}
+          
 	}
 	System.out.println();
+	//return;
     }
+   
   //Method searches if there is a list to search through
-  public void search()
-   {
-     if(head == null)
-      {
+  public void search(){
+     if(head == null){
          System.out.println("List is empty: Nothing to search for...");
       }
     
-      else
-       { findMovie(); };
+      else{ 
+    	  findMovie(); 
+      };
    }
+  
   // Looks for a movie title the the user asks for
-  public void findMovie()
-   {
-        MovieNode previous = null;
-	MovieNode current = head;
-	String searchName = null;
-	boolean isFound = false;
-	String currentName;
-	Scanner in = new Scanner(System.in);
-	System.out.print("What movie are you looking for?: ");
-	searchName = in.nextLine();      
+  public void findMovie(){
+       MovieNode previous = null;
+	   MovieNode current = head;
+	   String searchName = null;
+	   boolean isFound = false;
+	   String currentName;
+	   Scanner in = new Scanner(System.in);
+	   System.out.print("What movie are you looking for?: ");
+	   searchName = in.nextLine();      
 
-        while ((current != null) && (isFound == false))
-	{
-	    currentName = current.getData().getName();
-	    if (searchName.compareToIgnoreCase(currentName) == MATCH)
-              {
-	        isFound = true;
-                System.out.println(current);
-                
-              }
+       while ((current != null) && (isFound == false)){
+	      currentName = current.getData().getName();
+	      if (searchName.compareToIgnoreCase(currentName) == MATCH){
+	         isFound = true;
+             System.out.println(current);
+          }
        
-	    else
-	     {
+	      else{
 	        previous = current;
 		    current = current.getNext();
 	     }
-	}
-       if (isFound == false)
-        {
+	   }
+       if (isFound == false){
           System.out.println("This title doesn't exist in your library");
           System.out.println();
-        }
+       }
        
-    }
+  }
+  
+  
 }
